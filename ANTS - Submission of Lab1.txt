@@ -1,0 +1,334 @@
+Subject:			Lab1 Homework
+Group:			ANTS
+Class:			Software Engineering '14
+Date:			24.09.2014
+CONTENTS:		1	Interview protocols
+		2	List of user roles
+		3	Functional requirements the software must support
+		4	SMART requirements for usability and performance
+			
+			
+1			Interview protocols
+			
+Question	to Waiter	1	Would it be matter to you if the components in the window moved, let's say, due to window size changes?
+Answer	from Waiter	1	I guess it would be better if they'd stay in place. Easier to learn for me.
+			
+Question	to Waiter	2	Do you have a preference as to how the items would be presented?
+Answer	from Waiter	2	I don't know. Probably buttons with short and easy text or icons. Or maybe items listed by category and alphabetically. 
+			
+Question	to Waiter	3	If you've used a POS system before, do you find search option useful during work?
+Answer	from Waiter	3	The necessity of the search option is more of a debate, because depending on the system (touch or not), the search option could be troublesome. Waiters remember the location of items quite easily.
+			
+Question	to Waiter	4	Do you need tips to be considered in the program?
+Answer	from Waiter	4	Not really, we get tips to ourselves.
+			
+Question	to Waiter	5	Please explain how the waiters manage their tables and if your POS has helped you with it.
+Answer	from Waiter	5	We have our own sections so each client is easily seen by their waiter. So we haven't needed the help of the program for it.
+			
+Question	to Waiter	6	In your opinion, would it be necessary for all the items to be accessible at the same location?
+Answer	from Waiter	6	As I said before, I think categories would make it quicker for me to work during peak hours, but within categories, yes, I do think that all the same category items should be in the same place.
+			
+Question	to Waiter	7	Do you need an additional calculator option or is it enough for the system to compute all the necessary actions?
+Answer	from Waiter	7	We have a separate calculator aswell.
+			
+Question	to Waiter	8	Do you need separate bill types for immediate payment and open bills?
+Answer	from Waiter	8	No, it would be more comfortable for there to be separate options for payment when the bill is opened. I would not prefer to have to separate bill types.
+			
+Question	to Waiter	9	Do you need an option, where you can reopen a customer's bill?
+Answer	from Waiter	9	That would be most useful for when it is needed.
+			
+Question	to Waiter	10	Do you need an option to cancel the bill?
+Answer	from Waiter	10	Yes, of course. An option to cancel a bill is a must. You never know what might happen.
+			
+Question	to Waiter	11	Do you think an option to switch between a physical and virtual keyboard would be useful for the waiters?
+Answer	from Waiter	11	Yes, sometimes i think that the virtual keyboard can be a hassle when we have to type things in posthaste.
+			
+Question	to Waiter	12	Do you think the waiter should be able to give discounts?
+Answer	from Waiter	12	Yes, if the client has a discount card or something similar. Sometimes we want to order something for ourselves after work and our discounts are larger than the clients'.
+			
+Question	to Waiter	13	Should the system show when the bill was opened and closed?
+Answer	from Waiter	13	Yes, that would be useful.
+			
+Question	to Waiter	14	Should the system show who opened the bill and who closed it?
+Answer	from Waiter	14	Yes, of course.
+			
+Question	to Waiter	15	How happy are you with your current POS system
+Answer	from Waiter	15	It's ok, does its job. I wouldn't exactly say I'm happy with it.
+			
+Question	to Waiter	16	What would you want from the new POS system
+Answer	from Waiter	16	I want it to be easy to use.
+			
+Question	to Waiter	17	Can you tell me what easy to use means to you?
+Answer	from Waiter	17	I should be able to use it with very little training, all interface choices should be obvious.
+			
+Question	to Waiter	18	What functionality do you need from the system to do your job well?
+Answer	from Waiter	18	What was ordered, is the order fulfilled, do we have ordered items.
+			
+Question	to Waiter	19	What do you do if the system crashes?
+Answer	from Waiter	19	We go back to pen and paper to manage orders. It would be useful if the order could be printed out immediately after its taken.
+			
+Question	to Waiter	20	How many orders you need to handle simultanously?.
+Answer	from Waiter	20	I've had up to 20 orders at the same time.
+			
+Question	to Head Waiter	1	Would you need to move orders between waiters?
+Answer	from Head Waiter	1	Yes, there have been occasions where it's been necessary, so such an option would a plus
+			
+Question	to Head Waiter	2	What about removing items from orders?
+Answer	from Head Waiter	2	Of course, customers constantly change items around.
+			
+Question	to Head Waiter	3	Are there cases where order has been lost?
+Answer	from Head Waiter	3	Yes, on occasion, a waiter might accidentally close the program. We really need to prevent it. One or two doesn't cost much, but a lot of such mistakes do.
+			
+Question	to Head Waiter	4	At restaurants it's normal to present a receipt to the customer. What about beer restaurants?
+Answer	from Head Waiter	4	We are obligated to give the customer the receipt when asked.
+			
+Question	to Head Waiter	5	Do you have any kind of classes on teaching beginner waiters about using the program?
+Answer	from Head Waiter	5	No, it's usually me or one of the senior waiters that have to hang around for the first week with the rookie.
+			
+Question	to Head Waiter	6	Did your previous POS run smoothly?
+Answer	from Head Waiter	6	Mostly yes, but during peak hours it sometimes completely froze during the receipt printing. It was frustrating!
+			
+Question	to Head Waiter	7	What do you think might've caused it?
+Answer	from Head Waiter	7	We run some pretty old computers and the program had images and other effects everywhere. Completely unnecessary.
+			
+Question	to Head Waiter	8	Do you think that a tablet extension could be useful for the POS?
+Answer	from Head Waiter	8	The tablet could be useful for me, when i want to check the open orders but I am not near the register.
+			
+Question	to Head Waiter	9	Should the option to pay the bill partly in cash and partly with a credit card be an option?
+Answer	from Head Waiter	9	Yes of course, there are times where a customer has counted on that kind of option.
+			
+Question	to Head Waiter	10	Do you need reservation management for the system?
+Answer	from Head Waiter	10	Yes that would be quite useful.
+			
+Question	to Head Waiter	11	Would it be necessary for the system to show the amount of items in stock?
+Answer	from Head Waiter	11	That would be quite useful aswell.
+			
+Question	to Head Waiter	12	Do novice waiters need access to all of the system's functionalities?
+Answer	from Head Waiter	12	No, novice waiters should not have access to all of the fuctions, e.g. discounts. The discounts are fairly strictly handled.
+			
+Question	to Head Waiter	13	How are the discounts handled?
+Answer	from Head Waiter	13	All discounts must have my approval as I am the head waiter. If we have happy hour discounts or regular client discounts I should be able to set them up and waiters are then able apply them.
+			
+Question	to Head Waiter	14	Should the Head Waiter have a way of changing anything the waiters have done?
+Answer	from Head Waiter	14	Yes, and it should notify them of the change. This would simplify some of the processes.
+			
+Question	to Head Waiter	15	Does the Head Waiter require access to all of the orders opened by all of the waiters?
+Answer	from Head Waiter	15	Yes, most definitely. I need to keep an eye on everything that is going on.
+			
+Question	to Head Waiter	16	How often would you use the POS system?
+Answer	from Head Waiter	16	As i like to keep an eye on everything, I would have it open all the time.
+			
+Question	to Head Waiter	17	How exactly will you use it?
+Answer	from Head Waiter	17	I will keep an eye on how many orders we have, how long are they open if they are open for a long time I will check with the waiter. I want to see how many customers waiters have served. And I want to see cash registers' state at any given time.
+			
+Question	to Head Waiter	18	How else can the new system help you to fulfill your duties?
+Answer	from Head Waiter	18	I need to prepare reports for restaurant manager about shifts, so some automated report would be nice.
+			
+Question	to Head Waiter	19	Tell me about reports - what should they look like?
+Answer	from Head Waiter	19	It should have information about what was sold and in what quantity. Total income and income generated by each waiter.
+			
+Question	to Head Waiter	20	What needs to be tracked to make those reports?
+Answer	from Head Waiter	20	Every bill by date, time and the serving waiter, all things ordered by price and amount, is discount being applied. Was the payment in cash or credit card. 
+			
+Question	to Restaurant Manager	1	Do you have the items for sale coded?
+Answer	from Restaurant Manager	1	Yes, we do.
+			
+Question	to Restaurant Manager	2	Would you have use for an option to save a backup file of the orders?
+Answer	from Restaurant Manager	2	Yes, it would be a good option for logging purposes and later analysis.
+			
+Question	to Restaurant Manager	3	In your restaurant, who enters new items?
+Answer	from Restaurant Manager	3	Whoever from the staff is at the register when a completely new item comes to stock, I personally delegate it.
+			
+Question	to Restaurant Manager	4	Okay, we'll definitely be adding a minimum limit for the names, but is it necessary to have an upper limit aswell?
+Answer	from Restaurant Manager	4	Yes, we try to keep the names reasonable. Each item that contains many ingredients, has a recipe which the waiters are taught to find quickly from the book.
+			
+Question	to Restaurant Manager	5	Mistakes happen. You agree, that adding a confirmation window that reminds the waiter to recheckthe info, is necessary?
+Answer	from Restaurant Manager	5	Good point, agreed.
+			
+Question	to Restaurant Manager	6	Has there been any recurring complaints from waiters from a certain aspect of your previous program?
+Answer	from Restaurant Manager	6	A big issue was having to scroll down on the main page to find things. This mainly becomes a problem during rush hour. The eyes just can't catch up and it causes stress. This obviously flows over to customer dissatisfaction.
+			
+Question	to Restaurant Manager	7	How old are your computers approximately?
+Answer	from Restaurant Manager	7	I guess around 10 - 15 years old. We haven't really gotten new ones since we started.
+			
+Question	to Restaurant Manager	8	How do you want the card system to be, seperate from the system or together?
+Answer	from Restaurant Manager	8	I would prefer for it to be together, because then we can accurately see how the client has paid.
+			
+Question	to Restaurant Manager	9	Should the system support credit cards or debit cards?
+Answer	from Restaurant Manager	9	We'd need both types supported.
+			
+Question	to Restaurant Manager	10	What kinds do you want it to support?
+Answer	from Restaurant Manager	10	Visa, Mastercard, Maestro, American Express and Diners Club would be great.
+			
+Question	to Restaurant Manager	11	Do you give out gift certificates?
+Answer	from Restaurant Manager	11	Yes we do and I would like for it to have a separate section in the discounts section, where the waiter can enter the number of the gift certificate.
+			
+Question	to Restaurant Manager	12	Do you need an overview of the transactions done?
+Answer	from Restaurant Manager	12	Yes, and I would like to be able to enter the time period for it.
+			
+Question	to Restaurant Manager	13	Do you need an option to organize the staff?
+Answer	from Restaurant Manager	13	It would be nice to have, but it is typically handled by the head waiter.
+			
+Question	to Restaurant Manager	14	Do you want the system to keep track of valued customers?
+Answer	from Restaurant Manager	14	Yes, but only if they agree to it. 
+			
+Question	to Restaurant Manager	15	What kind of contact info do you think we should keep?
+Answer	from Restaurant Manager	15	Full name, e-mail and phone number should suffice.
+			
+Question	to Restaurant Manager	16	How would you keep track of them?
+Answer	from Restaurant Manager	16	We would give out customer cards, card like that should automatically apply loyal customer discount and save purchase info when run through system.
+			
+Question	to Restaurant Manager	17	What is done with that information?
+Answer	from Restaurant Manager	17	System should allow to get list of emails or phone numbers who might be interested in special offers of certain items.
+			
+Question	to Restaurant Manager	18	What else do you need from the system?
+Answer	from Restaurant Manager	18	I need to track restoran inventory.
+			
+Question	to Restaurant Manager	19	What exactly you need to be tracked?
+Answer	from Restaurant Manager	19	Every item must have item description, inventory quantity, quantity received, total, quantity sold and remaining quantity in the system.
+			
+Question	to Restaurant Manager	20	Why do you need that?
+Answer	from Restaurant Manager	20	I need to be able check if the inventory list matches the physical items in restoran after every shift. Also, I'll then know what to order from the warehouse.
+			
+Question	to Restaurant Manager	21	How will the ordering work?
+Answer	from Restaurant Manager	21	Our warehouses are in the system, I need to see which warehouse has the needed items and then I can order them via the system interface.
+			
+Question	to Company Administration	1	Do you need a multilingual option for the program?
+Answer	from Company Administration	1	Wouldn't hurt, but we mainly need it to be in English. All our waiters have a requirement to understand conversational English.
+			
+Question	to Company Administration	2	Would you need to keep a record of the comings and goings of the staff?
+Answer	from Company Administration	2	That is not necessary. Each staff member has their own computer access passwords which log their movement and the staff is required to log in at the beginning of the shift and log out when leaving at the end of the day.
+			
+Question	to Company Administration	3	Is there any limit per order you'd like to have?
+Answer	from Company Administration	3	To limit losses in case of customers not paying, we do need to have a limit. Around 250€ is good. Waiter can always start another order after payment.
+			
+Question	to Company Administration	4	Is there anything else that pops to mind when thinking of loss limits?
+Answer	from Company Administration	4	Empty orders. We do not sell anything for under one euro, but waiters rarely mess up the decimal place.
+			
+Question	to Company Administration	5	Usually we make sure that the program follows a single style. Therefore we will find the best font for your program and continue to use it throughout the program. Do you have any objections to that?
+Answer	from Company Administration	5	No, I do not.
+			
+Question	to Company Administration	6	You have ambitions to expand to 100 restaurants. What do you consider the main goal of the program for everyday use?
+Answer	from Company Administration	6	That's a tough one. Since we are expanding a lot, we spend a lot of resources on training. It should be as easy as possible to get from starting the program to paying for the completed order.
+			
+Question	to Company Administration	7	How would you like the performance reports to be grouped?
+Answer	from Company Administration	7	By country and by restaurant would be fine. And also I would like a general report of the whole company performance.
+			
+Question	to Company Administration	8	Should complaints and suggestions be seen by the administrator?
+Answer	from Company Administration	8	Yes, if a client has a complaint or a suggestion, then i would like to see if the complaint is reasonable and if the suggestion is feasible.
+			
+Question	to Company Administration	9	How long should the records of past performances be kept?
+Answer	from Company Administration	9	Atleast 6 months and up to a year. 
+			
+Question	to Company Administration	10	Do you need a real-time overview of the restaurants
+Answer	from Company Administration	10	No, the performance reports should suffice.
+			
+Question	to Company Administration	11	What information about staff do you think is necessary for you to see?
+Answer	from Company Administration	11	Definitely the amount of staff hired, and new hires and layoffs. But the ability to see everything about the staff would be good.
+			
+Question	to Company Administration	12	What details do you  want to see when accessing the reports?
+Answer	from Company Administration	12	At first glance general info would be nice, but I would like to access more information when necessary.
+			
+Question	to Company Administration	13	What information exactly?
+Answer	from Company Administration	13	I need to get the info by restaurant or by country, items cost, wages and salaries, payroll taxes, full revenue, profit, percent of profit from full sales.
+			
+Question	to Company Administration	14	Can everybody see that information?
+Answer	from Company Administration	14	No, this should be accessible to users who have company administration rights.
+			
+Question	to Company Administration	15	What rights should users have?
+Answer	from Company Administration	15	There should be 4 main groups. Company administrators who can see all information and can generate reports for single restaurant and groups of restaurants. Restaurant managers should have info about their own restaurant only. Head waiters can access bills and inventory of their own restaurant and waiters can access only bill they have created or has been passed to them.
+			
+Question	to Company Administration	16	Who and how will administrate users?
+Answer	from Company Administration	16	Restaurant managers should be able to deal with waiters' and head waiters' accounts and company administrators have rights to all user groups.
+			
+Question	to Company Administration	17	Do you want system to work differently on different countries?
+Answer	from Company Administration	17	No, we want to use same standard everywhere, and get the same data, but as different countries we need to have have different taxes customizable in the taxes part of the system.
+			
+Question	to Company Administration	18	Do you want the program to be locally installed or web based system?
+Answer	from Company Administration	18	Billing should of course work in case of connection outage and be locally installed but it should be possible to sync information from web.
+			
+Question	to Company Administration	19	How do you want to apply system updates?
+Answer	from Company Administration	19	Updates should be downloadable through a web connection.
+			
+Question	to Company Administration	20	Where should you be able to run the program?
+Answer	from Company Administration	20	It should run on any software platform that would support the actions we need and billing must run on tablets also of course.
+			
+2			List of user roles
+			
+		1	Waiter
+		2	Head waiter
+		3	Restaurant Manager
+		4	Company adminstration
+			
+3			Functional requirements the program must support
+			
+		REQ_F1	 Program window size shall be a fixed 640x480px
+		REQ_F2	 The program shall contain categorized lists of items, which will be displayed alphabetically in the user inteface.
+		REQ_F3	 The program shall contain a search option to quickly retrieve the item code.
+		REQ_F4	 The program shall have an option to create a backup log of orders.
+		REQ_F5	Each item shall have a corresponding numerical code
+		REQ_F6	The program shall be able to import an order from a saved log.
+		REQ_F7	The program shall allow the user to add an unspecified item to the order. Filling of price and name are mandatory. 
+		REQ_F8	The program shall be able to remove items from the order that is in use.
+		REQ_F9	The program shall invoke an error when an order under one euro is placed.
+		REQ_F10	The user shall have the ability to add new items to the item list in the program.
+		REQ_F11	The program shall require the user to fill all fields when adding a new item.
+		REQ_F12	The program shall have a limit of 3-15 characters for the item names.
+		REQ_F13	The program should request a confirmation from the user before adding new item to the database.
+		REQ_F14	The program should request a confirmation from the user before exiting the program.
+		REQ_F15	The program shall have the option for printing the receipt.
+		REQ_F16	The program shall have the font Arial in size 10 throughout the program.
+		REQ_F17	The elements on the screen shall fit within the fixed screen without scrolling.
+		REQ_F18	The system shall support different credit card types: visa, mastercard, maestro, american express, diners club.
+		REQ_F19	The system shall support the currency of the country it is being used in
+		REQ_F20	The head waiter shall be able to view the real-time situation concerning the restaurant (open orders etc)
+		REQ_F21	The program shall give waiters the right to give discounts concerning the situation (member's card, discount card)
+		REQ_F22	The program shall show warehouse stock in real-time (item cannot be sold if it is out of stock)
+		REQ_F23	The program shall show statements about the restaurants to the managers
+		REQ_F24	The program shall show the staff information of the restaurants to the managers
+		REQ_F25	The managers shall have the ability to replenish stock and update lists
+		REQ_F26	The program shall preserve the reports for atleast 6 months
+		REQ_F27	Head waiters shall have the ability to write comments on the performance on waiters
+		REQ_F28	The program shall have the functionality to be used through a tablet (by the head waiter)
+		REQ_F29	The program shall allow waiters to add client complaints and suggestions
+		REQ_F30	The program shall notify the waiters of changes made by the Head waiter
+		REQ_F31	The program shall handle valued customer information (e-mail, full name, phone number)
+		REQ_F32	The program shall give the head waiter and the manager the right to organize staff work schedules
+		REQ_F33	The program shall help manage reservations
+		REQ_F34	The program shall only allow the manager and the administrator to see the financial statements of the restaurant(s)
+		REQ_F35	The program shall require name and password for use.
+		REQ_F36	The program shall have 4 different user roles. Waiter, Head waiter, Restorant manger, Company administration.
+		REQ_F37	Restorant manager shallt be able to create and delete users for waiters and head waiters.
+		REQ_F38	Company administration users can create and delete restorant manager users.
+		REQ_F39	The program shall be able to identify customers with client cards.
+		REQ_F40	The program shall work on Microsoft Windows operating system.
+		REQ_F41	The program shall work on Linux operating system.
+		REQ_F42	The program shall work on Mac OS operating system.
+		REQ_F43	The program shall have option to choose taxes by country.
+		REQ_F44	The program shall allow to edit existing taxes.
+		REQ_F45	The program shall allow to add new taxes.
+		REQ_F46	The program shall allow to split existing bill.
+		REQ_F47	The program shall allow to pay with credit card and cash simultanously.
+		REQ_F48	The program shall update restoran inventory automatically when items are sold.
+		REQ_F49	The program shall allow to set alert, when it's time to re-order items.
+		REQ_F50	The program shall write log information automatically to database.
+		REQ_F51	The program shall log  order opening  and closing time.
+		REQ_F52	The program shall log waiter_id who served the order.
+		REQ_F53	The program shall be able to generate customized views from database.
+			
+4			SMART requirements for usability and performance
+			
+		REQ_U1	Any needed action included in the program shall be found within 10 seconds by a novice user. 
+		REQ_U2	"Any necessary included operations shall be possible to be executed at a maximum of three levels. 
+      E.g 1. POS first page - New order -> 2. Order page - Enter necessary information -> 3. Payment page"
+		REQ_U3	The program shall contain a Help option with information about the program and how to use it.
+		REQ_U4	The program shall give users the access depending on their user level of access
+		REQ_U5	The program will only have horizontal scroll for easy understanding of the systrem
+		REQ_U6	The program shall contain large buttons for easy accessibility
+		REQ_U7	Error messages should explain how to recover from error.
+		REQ_U8	Undo shall be available for most actions.
+		REQ_P1	The program shall have a response time of 5s or less on a computer with 8MB RAM and up, 500MB hard drive, 33MHz processor and 24-bit accelerated video.
+		REQ_P2	The program shall not have incorporated more than 100kb of images in total.
+		REQ_P3	The program will not lose more than 10% of performance speed when up to 5 users access it at one time
+		REQ_P4	Only one person is allowed to update the system and system files at one time
+		REQ_P5	The program menu options shall response in 0,2s or less

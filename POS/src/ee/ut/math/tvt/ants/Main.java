@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 public class Main extends Application {
 	public void start(Stage stage) {
         // load the image
-        File file = new File("/Users/Tanel/Documents/tudeng/Tarkvaratehnika/workspace/POS/beerhouse.jpg");
+        File file = new File("beerhouse.jpg");
 		Image image = new Image(file.toURI().toString());
 
         // simple displays ImageView the image as is

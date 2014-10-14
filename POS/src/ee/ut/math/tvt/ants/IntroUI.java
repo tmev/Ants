@@ -43,7 +43,7 @@ public class IntroUI {
 	    		+ "ANTS<br/>"
 	    		+ "Tanel Aamer<br/>"
 	    		+ "tanel.aamer@eesti.ee<br/>"
-	    		+ "Toomas Õunmaa, Umar Zarip, Tanel Aamer<br/></html>"
+	    		+ "Toomas Ounmaa, Umar Zarip, Tanel Aamer<br/></html>"
 	    		+ buildProps);
 	    sisu2.add(tekst2);
 	    

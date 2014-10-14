@@ -2,6 +2,7 @@ package ee.ut.math.tvt.ants;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.Properties;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -33,13 +34,17 @@ public class IntroUI {
 	    		+ "Software version number</html>");
 	    sisu.add(tekst);
 	    
+	    Properties buildProps = new Properties();
+	    buildProps.getProperty("build.xml");
+	    System.out.println(buildProps);
+	    
 	    JPanel sisu2 = new JPanel(new GridLayout(1, 3));
 	    JLabel tekst2 = new JLabel("<html>"
 	    		+ "ANTS<br/>"
 	    		+ "Tanel Aamer<br/>"
 	    		+ "tanel.aamer@eesti.ee<br/>"
-	    		+ "Toomas Õunmaa, Umar Zarip, Tanel Aamer<br/>"
-	    		+ "TBA</html>");
+	    		+ "Toomas Õunmaa, Umar Zarip, Tanel Aamer<br/></html>"
+	    		+ buildProps);
 	    sisu2.add(tekst2);
 	    
 	    raam.add(logo);
@@ -49,5 +54,7 @@ public class IntroUI {
 	// 
 	         raam.setVisible(true); 
 
+	   
+	         
 	}
 }

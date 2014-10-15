@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class appProp {
-	
+	 
 	
 	
 	@SuppressWarnings("finally")

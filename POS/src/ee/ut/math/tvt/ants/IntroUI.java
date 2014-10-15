@@ -2,21 +2,10 @@ package ee.ut.math.tvt.ants;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.io.FileInputStream;
-<<<<<<< HEAD
-import java.io.InputStream;
-=======
-import java.io.FileNotFoundException;
-import java.io.IOException;
->>>>>>> 8467313c40333ccc082274930bc2b2390dc4688d
-import java.util.Properties;
-
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -58,8 +47,8 @@ public class IntroUI {
 	    		+ "ANTS<br/>"
 	    		+ "Tanel Aamer<br/>"
 	    		+ "tanel.aamer@eesti.ee<br/>"
-	    		+ "Toomas Ounmaa, Umar Zarip, Tanel Aamer<br/></html>"
-	    		+ "tba");
+	    		+ "Toomas Ounmaa, Umar Zarip, Tanel Aamer<br/>"
+	    		+  verProp.getPropVal("build.major.number")+"."+verProp.getPropVal("build.minor.number")+"."+verProp.getPropVal("build.revision.number"));
 	    sisu2.add(tekst2);
 	    
 	    raam.add(logo);

@@ -79,6 +79,7 @@
 	
     <target name="jrun" depends="dist">
         <java jar="${dist.dir}/${ant.project.name}.jar" fork="true"/>
+        
     </target>
 
     <target name="clean-build" depends="clean,dist"/>

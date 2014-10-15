@@ -11,6 +11,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 
 
+
 public class IntroUI {
 	private static final Logger log = Logger.getLogger(IntroUI.class);
 	
@@ -48,7 +49,7 @@ public class IntroUI {
 	    		+ "Tanel Aamer<br/>"
 	    		+ "tanel.aamer@eesti.ee<br/>"
 	    		+ "Toomas Ounmaa, Umar Zarip, Tanel Aamer<br/>"
-	    		+  verProp.getPropVal("build.major.number")+"."+verProp.getPropVal("build.minor.number")+"."+verProp.getPropVal("build.revision.number"));
+	    		+  verProp.getPropVal("build-number"));
 	    sisu2.add(tekst2);
 	    
 	    raam.add(logo);

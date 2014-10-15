@@ -41,15 +41,13 @@ public class IntroUI {
 	    		+ "Software version number</html>");
 	    sisu.add(tekst);
 	    
-	    
-	    
 	    JPanel sisu2 = new JPanel(new GridLayout(1, 3));
 	    JLabel tekst2 = new JLabel("<html>"
-	    		+ "ANTS<br/>"
-	    		+ "Tanel Aamer<br/>"
-	    		+ "tanel.aamer@eesti.ee<br/>"
-	    		+ "Toomas Ounmaa, Umar Zarip, Tanel Aamer<br/>"
-	    		+  verProp.getPropVal("build-number"));
+	    		+ appProp.getAppVal("Name")+"<br/>"
+	    		+ appProp.getAppVal("Leader")+"<br/>"
+	    		+ appProp.getAppVal("Email")+"<br/>"
+	    		+ appProp.getAppVal("Members")+"<br/>"
+	    		+  verProp.getPropVal("build-number")+"</html>");
 	    sisu2.add(tekst2);
 	    
 	    raam.add(logo);

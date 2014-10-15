@@ -60,6 +60,13 @@
     		<attribute name="build-number"
     			value="${build.major.number}.${build.minor.number}.${build.number}"/>
     	</manifest>
+    	<propertyfile
+    		file="application.properties">
+    		<entry key="Name" value="Ants"/>
+    		<entry key="Leader" value="Tanel Aamer"/>
+    		<entry key="Email" value="tanel.aamer@eesti.ee"/>
+    		<entry key="Members" value="Tanel Aamer, Umar Zarip, Toomas Ounmaa"/>
+    	</propertyfile>
         <jar destfile="${dist.dir}/${ant.project.name}.jar" basedir="${classes.dir}"
         	manifest="version.properties">
             

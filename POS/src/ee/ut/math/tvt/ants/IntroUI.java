@@ -3,7 +3,12 @@ package ee.ut.math.tvt.ants;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.io.FileInputStream;
+<<<<<<< HEAD
 import java.io.InputStream;
+=======
+import java.io.FileNotFoundException;
+import java.io.IOException;
+>>>>>>> 8467313c40333ccc082274930bc2b2390dc4688d
 import java.util.Properties;
 
 
@@ -12,9 +17,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class IntroUI {
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
-	public static void introUI() {
+
+
+public class IntroUI {
+	private static final Logger log = Logger.getLogger(IntroUI.class);
+	
+	public static void introUI()  {
+		
+		PropertyConfigurator.configure("log4j.properties");
+		
 		JFrame raam = new JFrame("Beerhouse by ANTS"); // raami loomine
 	    raam.setSize(750, 260); // 
 	    raam.setLocation(100, 100); // 
@@ -55,7 +69,7 @@ public class IntroUI {
 	// 
 	         raam.setVisible(true); 
 
-	   
+	         log.info("IntroUi window opened");  
 	         
 	}
 }

@@ -7,9 +7,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class Intro {
-
+	
 	public static void main(String[] args) {
+		
 		IntroUI.introUI();
+		
 	}
 
 }

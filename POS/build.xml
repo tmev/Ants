@@ -2,11 +2,11 @@
 <project name="ANTS" basedir="." default="main">
 
     <property name="src.dir"     value="src"/>
-
+	<property name="lib.dir"  value="lib"/>
     <property name="build.dir"   value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="dist.dir"     value="${build.dir}/jar"/>
-
+	<property name="conf.dir"  value="conf"/>
     <property name="main-class"  value="ee.ut.math.tvt.ants.Intro"/>
 
 	<path id="compile.classpath">
@@ -15,9 +15,12 @@
 		</fileset>
 	</path>
 	
+
+	
 	<path id="test.classpath">
 		<pathelement location="${classes.dir}"/>
 		<!-- configuration -->
+		<pathelement location="${conf.dir}"/>
 		<pathelement location="${conf.dir}"/>
 		<fileset dir="lib">
 			<include name="*.jar"/>
@@ -74,19 +77,55 @@
         	       <attribute name="Main-Class" value="${main-class}"/>
         	 </manifest>
         </jar>
+    	
+    	<mkdir dir="${build.dir}/jar"/>
+
+    	 		<jar destfile="${build.dir}/jar/${ant.project.name}.jar">
+
+    	            <manifest>
+    	                <attribute name="main-class" value="ee.ut.math.tvt.ants.Intro"/>
+
+    	            </manifest>
+
+    	            <fileset dir="${classes.dir}"/>
+
+    	 			<fileset dir="${conf.dir}"/> 
+
+    	            <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
+
+    			</jar>
+    	
+    	
     </target>
 
 	<target name="run" depends="build" description="Run the template application">
-			<java classname="ee.ut.math.tvt.ants.Intro" classpathref="test.classpath" fork="yes" />
+		   <java
+		          classname="ee.ut.math.tvt.ants.Intro"
+		            classpathref="test.classpath"
+		            fork="yes">
+		          <jvmarg value="-Xdebug" />
+		          <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044" />
+		        </java>
 		</target>
 	
-    <target name="jrun" depends="dist">
-        <java jar="${dist.dir}/${ant.project.name}.jar" fork="true"/>
-        
-    </target>
+	  <target name="jrun" depends="dist">
+	        <java jar="${dist.dir}/${ant.project.name}.jar" fork="true"/>
+	    </target>
+		
+
+	
+	<target name="runc" depends="build" description="Run the application (console)">
+		<java classname="ee.ut.math.tvt.ants.Intro" classpathref="test.classpath" fork="yes">
+			<arg value="console" />
+		</java>
+	</target>
+
 
     <target name="clean-build" depends="clean,dist"/>
 
     <target name="main" depends="clean,jrun"/>
+	
+  
+
 
 </project>

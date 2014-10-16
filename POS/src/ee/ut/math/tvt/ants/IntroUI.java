@@ -12,7 +12,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 
 
-public class IntroUI {
+public class IntroUI extends JFrame {
 	private static final Logger log = Logger.getLogger(IntroUI.class);
 	
 	public static void introUI()  {

@@ -51,7 +51,7 @@
     <target name="dist" depends="build">
         <mkdir dir="${dist.dir}"/>
     	<delete file="${dist.dir}/${ant.project.name}.jar"/>
-    	<delete file="version.properties"/>
+ 
     	<property name="build.minor.number" value="0"/>
     	<property name="build.major.number" value="0"/>
     	<buildnumber file="build.num"/>
@@ -63,13 +63,7 @@
     		<attribute name="build-number"
     			value="${build.major.number}.${build.minor.number}.${build.number}"/>
     	</manifest>
-    	<propertyfile
-    		file="application.properties">
-    		<entry key="Name" value="Ants"/>
-    		<entry key="Leader" value="Tanel Aamer"/>
-    		<entry key="Email" value="tanel.aamer@eesti.ee"/>
-    		<entry key="Members" value="Tanel Aamer, Umar Zarip, Toomas Ounmaa"/>
-    	</propertyfile>
+
         <jar destfile="${dist.dir}/${ant.project.name}.jar" basedir="${classes.dir}"
         	manifest="version.properties">
         	

@@ -8,7 +8,8 @@
     <property name="dist.dir"     value="${build.dir}/jar"/>
 	<property name="conf.dir"  value="conf"/>
     <property name="main-class"  value="ee.ut.math.tvt.ants.Intro"/>
-
+	<property name="repository" value="https://github.com/tanel3203/testrepo" />
+	
 	<path id="compile.classpath">
 		<fileset dir="lib">
 			<include name="*.jar"/>

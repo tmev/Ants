@@ -20,7 +20,7 @@
 	
 	<path id="test.classpath">
 		<pathelement location="${classes.dir}"/>
-		<!-- configuation -->
+		<!-- configuration -->
 		<pathelement location="${conf.dir}"/>
 		<pathelement location="${conf.dir}"/>
 		<fileset dir="lib">

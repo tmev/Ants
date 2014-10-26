@@ -73,20 +73,13 @@
         </jar>
     	
     	<mkdir dir="${build.dir}/jar"/>
-
     	 		<jar destfile="${build.dir}/jar/${ant.project.name}.jar">
-
     	            <manifest>
     	                <attribute name="main-class" value="ee.ut.math.tvt.ants.Intro"/>
-
     	            </manifest>
-
     	            <fileset dir="${classes.dir}"/>
-
     	 			<fileset dir="${conf.dir}"/> 
-
     	            <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
-
     			</jar>
     	
     	
@@ -114,6 +107,43 @@
 		</java>
 	</target>
 
+	<target name="git_commit" description="add, commit, push">
+		<input message="Commit message:" addproperty="git.commit.message" />
+		<exec executable="git">
+			<arg value="add" />
+			<arg value="." />
+		</exec>
+		<exec executable="git">
+			<arg value="commit" />
+			<arg value="-m" />
+			<arg value="${git.commit.message}" />
+		</exec>
+		<exec executable="git">
+			<arg value="push" />
+			<arg value="${repository}" />
+			<arg value="master" />
+		</exec>
+
+	</target>
+
+	<target name="git_tag" description="Make a repository tag">
+		<input message="Homework number:" addproperty="git.tag.number" />
+		<input message="Tag message:" addproperty="git.tag.message" />
+		<exec executable="git">
+			<arg value="tag" />
+			<arg value="-a" />
+			<arg value="homework_${git.tag.number}" />
+			<arg value="-m" />
+			<arg value="${git.tag.message}" />
+		</exec>
+		<exec executable="git">
+			<arg value="push" />
+			<arg value="${repository}" />
+			<arg value="--tags" />
+		</exec>
+	</target>
+
+	
 
     <target name="clean-build" depends="clean,dist"/>
 

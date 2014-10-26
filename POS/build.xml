@@ -8,7 +8,7 @@
     <property name="dist.dir"     value="${build.dir}/jar"/>
 	<property name="conf.dir"  value="conf"/>
     <property name="main-class"  value="ee.ut.math.tvt.ants.Intro"/>
-	<property name="repository" value="https://github.com/tanel3203/testrepo" />
+	<property name="repository" value="https://github.com/tmev/Ants.git" />
 	
 	<path id="compile.classpath">
 		<fileset dir="lib">
@@ -20,7 +20,7 @@
 	
 	<path id="test.classpath">
 		<pathelement location="${classes.dir}"/>
-		<!-- configuration -->
+		<!-- configuation -->
 		<pathelement location="${conf.dir}"/>
 		<pathelement location="${conf.dir}"/>
 		<fileset dir="lib">

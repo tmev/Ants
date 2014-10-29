@@ -1,21 +1,78 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
+import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.JTableHeader;
+import javax.swing.JComponent;
 
 
 public class StockTab {
-
-  private JButton addItem;
+	private JTextField StockID;
+	private JTextField StockName;
+	private JTextField StockDescription;
+	private JTextField StockPrice;
+	private JTextField StockQuantity;
+	private JButton addItem;
+  
+	
+	public StockItem CreateStockItem(){
+		Long id = Long.parseLong(StockID.getText());
+		String name = StockName.getText();
+		String desc = StockDescription.getText();
+		double price = Double.parseDouble(StockPrice.getText());
+		Integer quantity = Integer.parseInt(StockQuantity.getText());
+		StockItem stockItem = new StockItem(id, name, desc, price, quantity);
+		return stockItem;
+	}
+	
+	
+	public Component addStockItem(){
+	  JPanel addStock = new JPanel();
+	  addStock.setLayout(new GridLayout(1, 1));
+	  addStock.setBorder(BorderFactory.createTitledBorder("Add Stock "));
+	  StockID = new JTextField();
+	  StockName = new JTextField();
+	  StockDescription = new JTextField();
+	  StockPrice = new JTextField();
+	  StockQuantity = new JTextField();
+	  addItem = new JButton("Add");
+	  addItem.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+        	  model.getWarehouseTableModel().addItem(CreateStockItem());;
+          }
+      });
+	  addStock.add(addItem);
+	  addStock.add(new JLabel(" ID:"));
+	  addStock.add(StockID);
+	  addStock.add(new JLabel(" Name:"));
+	  addStock.add(StockName);
+	  addStock.add(new JLabel(" Desc:"));
+	  addStock.add(StockDescription);
+	  addStock.add(new JLabel(" Price:"));
+	  addStock.add(StockPrice);
+	  addStock.add(new JLabel(" Quantity:"));
+	  addStock.add(StockQuantity);
+	  
+	  return addStock;
+  }
+  
 
   private SalesSystemModel model;
 
@@ -58,22 +115,20 @@ public class StockTab {
     gc.anchor = GridBagConstraints.NORTHWEST;
     gc.weightx = 0;
 
-    addItem = new JButton("Add");
+    
     gc.gridwidth = GridBagConstraints.RELATIVE;
     gc.weightx = 1.0;
-    panel.add(addItem, gc);
-
+    panel.add(addStockItem());
     panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     return panel;
   }
-
 
   // table of the wareshouse stock
   private Component drawStockMainPane() {
     JPanel panel = new JPanel();
 
     JTable table = new JTable(model.getWarehouseTableModel());
-
+    
     JTableHeader header = table.getTableHeader();
     header.setReorderingAllowed(false);
 
@@ -93,3 +148,12 @@ public class StockTab {
   }
 
 }
+
+
+
+
+
+
+
+
+

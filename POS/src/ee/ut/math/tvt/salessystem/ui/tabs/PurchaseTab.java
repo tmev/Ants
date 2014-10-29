@@ -16,6 +16,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -204,6 +205,10 @@ public class PurchaseTab {
   private JTextField totalSum;
   private JTextField paymentAmount;
   private JTextField changeAmount;
+  private JButton CalculateMoney;
+  private JButton Accept;
+  private JButton Cancel;
+  
   //private JTextField acceptCancel;
   
   protected void popup() {
@@ -215,15 +220,12 @@ public class PurchaseTab {
 	    raam.setLocation(100, 100); // 
 	    raam.getContentPane().setBackground(Color.WHITE);
 	    raam.setLayout(new GridLayout(1,2)); // paigutushalduri kasutamine
-
-	    //JPanel logo = new JPanel(new GridLayout(1, 1));
-	   	//JLabel imgLabel = new JLabel(new ImageIcon("beerhouse.jpg"));
-	   	/////logo.setBackground(Color.WHITE);
-	   	//logo.add(imgLabel);
 	    
-	// 
+	    CalculateMoney = new JButton("Calculate");
+	    Accept = new JButton("Accept");
+	    Cancel = new JButton("Cancel");
 	   	
-	    JPanel sisu = new JPanel(new GridLayout(4, 2));
+	    JPanel sisu = new JPanel(new GridLayout(6, 2));
 	    /* JLabel tekst = new JLabel("<html>"
 	    		+ "<b>Order total sum<br/>"
 	    		+ "Enter payment amount<br/>"
@@ -233,6 +235,7 @@ public class PurchaseTab {
 	    
 	    sisu.add(new JLabel("<html><b>Order total sum<br/></html>"));
 	    sisu.add(new JLabel("<html><b>Enter payment amount<br/></html>"));
+	    sisu.add(new JLabel("<html><b>Calculate Change<br/></html>"));
 	    sisu.add(new JLabel("<html><b>Change amount<br/></html>"));
 	    sisu.add(new JLabel("<html><b>Accept/Cancel<br/></html>"));
 	    
@@ -242,15 +245,16 @@ public class PurchaseTab {
         changeAmount = new JTextField();
         //acceptCancel = new JTextField();
         
-        JPanel sisu2 = new JPanel(new GridLayout(4, 2));
+        JPanel sisu2 = new JPanel(new GridLayout(6, 2));
 	    sisu2.add(totalSum);
 	    sisu2.add(paymentAmount);
-	    sisu2.add(changeAmount);        
+	    sisu2.add(CalculateMoney);
+	    sisu2.add(changeAmount);
+	    sisu2.add(Accept);
+	    sisu2.add(Cancel);
         totalSum.setEditable(false);
         changeAmount.setEditable(false);
         
-        
-	       // StockItem stockItem = getStockItemByBarcode();
 	    	StockItem stockItem = getStockItemByName();
 	        if (stockItem != null) {
 	        	Integer i = 0;
@@ -264,17 +268,40 @@ public class PurchaseTab {
 	        } else {
 	            reset();
 	        }
-        
+	        
+	    CalculateMoney.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                changeAmount.setText(CalculateMoneySum());
+            }
+        });
+	    Accept.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Date date = new Date();
+            	log.info("Date: " +date+ " Price: "+totalSum.getText());
+            }
+        });
+
+
         
 	    raam.add(sisu);
 	    raam.add(sisu2);
 	         raam.setVisible(true); 
-
+	         
 	         log.info("Confirm window opened");  
 	  }
   
- 
-  		private List<StockItem> a; 
+	private String CalculateMoneySum() {
+			double payment = Double.parseDouble(paymentAmount.getText());
+			double totalsumN = Double.parseDouble(totalSum.getText());
+			String Change = String.valueOf(payment-totalsumN);
+		return Change;
+		}
+  
+  
+  
+
+
+		private List<StockItem> a; 
   		private JComboBox dropItemMenu;
   		private int lisaHind;
   		private StockItem getStockItemByName() {

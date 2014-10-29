@@ -12,6 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.swing.BorderFactory;
@@ -38,6 +41,7 @@ public class PurchaseItemPanel extends JPanel {
     private JTextField quantityField;
     private JTextField nameField;
     private JTextField priceField;
+    private List<StockItem> a; 
 
     private JButton addItemButton;
 
@@ -89,19 +93,24 @@ public class PurchaseItemPanel extends JPanel {
 
         // Initialize the textfields
         dropItemMenu = new JComboBox();
+        a=model.getWarehouseTableModel().getTableRows();
+        for (StockItem i : a) {
+        	dropItemMenu.addItem(i.getName());
+        	}
+
         barCodeField = new JTextField();
         quantityField = new JTextField("1");
         nameField = new JTextField();
         priceField = new JTextField();
 
         // Fill the dialog fields if the bar code text field loses focus
-        barCodeField.addFocusListener(new FocusListener() {
-            public void focusGained(FocusEvent e) {
+        dropItemMenu.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent arg0) {
+            	if (dropItemMenu.isEnabled() == true){
+            		fillDialogFields();}
+           
             }
-
-            public void focusLost(FocusEvent e) {
-                fillDialogFields();
-            }
+        
         });
 
         nameField.setEditable(false);
@@ -143,12 +152,13 @@ public class PurchaseItemPanel extends JPanel {
 
     // Fill dialog with data from the "database".
     public void fillDialogFields() {
-        StockItem stockItem = getStockItemByBarcode();
-
+       // StockItem stockItem = getStockItemByBarcode();
+    	StockItem stockItem = getStockItemByName();
         if (stockItem != null) {
             nameField.setText(stockItem.getName());
             String priceString = String.valueOf(stockItem.getPrice());
             priceField.setText(priceString);
+            barCodeField.setText(String.valueOf(stockItem.getId()));
         } else {
             reset();
         }
@@ -156,11 +166,18 @@ public class PurchaseItemPanel extends JPanel {
 
     // Search the warehouse for a StockItem with the bar code entered
     // to the barCode textfield.
-    private StockItem getStockItemByBarcode() {
+   
+    private StockItem getStockItemByName() {
         try {
-            int code = Integer.parseInt(barCodeField.getText());
-            return model.getWarehouseTableModel().getItemById(code);
-        } catch (NumberFormatException ex) {
+        	
+        	for (StockItem i : a) {
+        	if (i.getName() == (String) dropItemMenu.getSelectedItem()){
+            int j = i.getId().intValue();
+            return model.getWarehouseTableModel().getItemById(j);}
+        	}
+        	 return null;} 
+       
+        catch (NumberFormatException ex) {
             return null;
         } catch (NoSuchElementException ex) {
             return null;
@@ -172,7 +189,7 @@ public class PurchaseItemPanel extends JPanel {
      */
     public void addItemEventHandler() {
         // add chosen item to the shopping cart.
-        StockItem stockItem = getStockItemByBarcode();
+        StockItem stockItem = getStockItemByName();
         if (stockItem != null) {
             int quantity;
             try {

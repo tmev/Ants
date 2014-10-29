@@ -282,6 +282,7 @@ public class PurchaseTab {
                 PurchaseItemPanel.barCodeField.setText("");
                 PurchaseItemPanel.quantityField.setText("");
                 PurchaseItemPanel.priceField.setText("");
+                model.getCurrentPurchaseTableModel().clear();
                 log.info("Transaction Complete");
             	log.info("Date: " +date+ " Price: "+totalSum.getText());
             }

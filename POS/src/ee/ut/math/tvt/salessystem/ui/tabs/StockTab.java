@@ -56,6 +56,11 @@ public class StockTab {
 	  addItem.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent e) {
         	  model.getWarehouseTableModel().addItem(CreateStockItem());;
+        	  StockID.setText("");
+        	  StockName.setText("");
+        	  StockDescription.setText("");
+        	  StockPrice.setText("");
+        	  StockQuantity.setText("");
           }
       });
 	  addStock.add(addItem);

@@ -253,8 +253,14 @@ public class PurchaseTab {
 	       // StockItem stockItem = getStockItemByBarcode();
 	    	StockItem stockItem = getStockItemByName();
 	        if (stockItem != null) {
-	            String priceString = String.valueOf(stockItem.getPrice());
-	            totalSum.setText(priceString);
+	        	Integer i = 0;
+	        	double Sum = 0;
+	            while(i < model.getCurrentPurchaseTableModel().getRowCount()){
+	            	Sum += (double) model.getCurrentPurchaseTableModel().getValueAt(i, 4);
+	            	i += 1;
+	            }
+	            String SumNew = String.valueOf(Sum);
+	            totalSum.setText(SumNew);
 	        } else {
 	            reset();
 	        }

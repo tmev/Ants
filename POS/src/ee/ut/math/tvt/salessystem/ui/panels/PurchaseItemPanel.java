@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -176,11 +177,25 @@ public class PurchaseItemPanel extends JPanel {
             int quantity;
             try {
                 quantity = Integer.parseInt(quantityField.getText());
-            } catch (NumberFormatException ex) {
+                if (quantity < 0) {
+                	throw new NumberFormatException("Negative quantity.");
+                	}
+                else if (stockItem.getQuantity()==0){
+                	JOptionPane.showMessageDialog(this, "No more "+ stockItem.getName() + " in the Stock.");                	
+                }
+                else if (stockItem.getQuantity() < quantity) {
+                	JOptionPane.showMessageDialog(this, "Only "+stockItem.getQuantity()+"  "+ stockItem.getName() + " in the Stock.");
+            } 
+                
+                else{
+                	model.getCurrentPurchaseTableModel().addItem(new SoldItem(stockItem, quantity));
+                	stockItem.setQuantity(stockItem.getQuantity() - quantity);
+                }
+            }
+                catch (NumberFormatException ex) {
                 quantity = 1;
             }
-            model.getCurrentPurchaseTableModel()
-                .addItem(new SoldItem(stockItem, quantity));
+            
         }
     }
 

@@ -1,19 +1,35 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
+
+import ee.ut.math.tvt.ants.appProp;
+import ee.ut.math.tvt.ants.verProp;
+import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  * Encapsulates everything that has to do with the purchase tab (the tab
@@ -24,7 +40,7 @@ public class PurchaseTab {
   private static final Logger log = Logger.getLogger(PurchaseTab.class);
 
   private final SalesDomainController domainController;
-
+ 
   private JButton newPurchase;
 
   private JButton submitPurchase;
@@ -110,6 +126,12 @@ public class PurchaseTab {
         submitPurchaseButtonClicked();
       }
     });
+    // Confirm button screen
+    b.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          popup();
+        }
+      });
     b.setEnabled(false);
 
     return b;
@@ -177,9 +199,125 @@ public class PurchaseTab {
       log.error(e1.getMessage());
     }
   }
+  
+  // Text fields
+  private JTextField totalSum;
+  private JTextField paymentAmount;
+  private JTextField changeAmount;
+  //private JTextField acceptCancel;
+  
+  protected void popup() {
 
+	  PropertyConfigurator.configure("log4j.properties");
+		
+		JFrame raam = new JFrame("Information"); // raami loomine
+	    raam.setSize(750, 260); // 
+	    raam.setLocation(100, 100); // 
+	    raam.getContentPane().setBackground(Color.WHITE);
+	    raam.setLayout(new GridLayout(1,2)); // paigutushalduri kasutamine
 
+	    //JPanel logo = new JPanel(new GridLayout(1, 1));
+	   	//JLabel imgLabel = new JLabel(new ImageIcon("beerhouse.jpg"));
+	   	/////logo.setBackground(Color.WHITE);
+	   	//logo.add(imgLabel);
+	    
+	// 
+	   	
+	    JPanel sisu = new JPanel(new GridLayout(4, 2));
+	    /* JLabel tekst = new JLabel("<html>"
+	    		+ "<b>Order total sum<br/>"
+	    		+ "Enter payment amount<br/>"
+	    		+ "Change amount<br/>"
+	    		+ "Accept/Cancel</html>");
+	    sisu.add(tekst);*/
+	    
+	    sisu.add(new JLabel("<html><b>Order total sum<br/></html>"));
+	    sisu.add(new JLabel("<html><b>Enter payment amount<br/></html>"));
+	    sisu.add(new JLabel("<html><b>Change amount<br/></html>"));
+	    sisu.add(new JLabel("<html><b>Accept/Cancel<br/></html>"));
+	    
+	 // Initialize the textfield
+        totalSum = new JTextField();
+        paymentAmount = new JTextField();
+        changeAmount = new JTextField();
+        //acceptCancel = new JTextField();
+        
+        JPanel sisu2 = new JPanel(new GridLayout(4, 2));
+	    sisu2.add(totalSum);
+	    sisu2.add(paymentAmount);
+	    sisu2.add(changeAmount);        
+        totalSum.setEditable(false);
+        changeAmount.setEditable(false);
+        
+        
+	       // StockItem stockItem = getStockItemByBarcode();
+	    	StockItem stockItem = getStockItemByName();
+	        if (stockItem != null) {
+	            String priceString = String.valueOf(stockItem.getPrice());
+	            totalSum.setText(priceString);
+	        } else {
+	            reset();
+	        }
+        
+        
+	    raam.add(sisu);
+	    raam.add(sisu2);
+	         raam.setVisible(true); 
 
+	         log.info("Confirm window opened");  
+	  }
+  
+ 
+  		private List<StockItem> a; 
+  		private JComboBox dropItemMenu;
+  		private int lisaHind;
+  		private StockItem getStockItemByName() {
+  		
+  		
+      dropItemMenu = new JComboBox();
+      lisaHind = 0;
+      a=model.getWarehouseTableModel().getTableRows();
+      for (StockItem i : a) {
+      	dropItemMenu.addItem(i.getName());
+//      	//lisaHind.add(i.getPrice().intValue());
+      	}
+	  
+	  
+      try {
+      	
+      	for (StockItem i : a) {
+      	if (i.getName() == (String) dropItemMenu.getSelectedItem()){
+          int j = i.getId().intValue();
+          return model.getWarehouseTableModel().getItemById(j);}
+      	}
+      	 return null;} 
+     
+      catch (NumberFormatException ex) {
+          return null;
+      } catch (NoSuchElementException ex) {
+          return null;
+      }
+      
+   
+  }
+
+  	    public void fillDialogFields() {
+  	       // StockItem stockItem = getStockItemByBarcode();
+  	    	StockItem stockItem = getStockItemByName();
+  	        if (stockItem != null) {
+  	            String priceString = String.valueOf(stockItem.getPrice());
+  	            totalSum.setText(priceString);
+  	        } else {
+  	            reset();
+  	        }
+  	    }
+  	  public void reset() {
+  		  totalSum.setText("");
+  	  }
+  		
+  		
+  		
+  		
   /* === Helper methods that bring the whole purchase-tab to a certain state
    *     when called.
    */

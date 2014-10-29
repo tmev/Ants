@@ -36,7 +36,7 @@ public class PurchaseItemPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     // Text field on the dialogPane
-    private JComboBox dropItemMenu;
+    private JComboBox<String> dropItemMenu;
     private JTextField barCodeField;
     private JTextField quantityField;
     private JTextField nameField;
@@ -92,7 +92,7 @@ public class PurchaseItemPanel extends JPanel {
         panel.setBorder(BorderFactory.createTitledBorder("Product"));
 
         // Initialize the textfields
-        dropItemMenu = new JComboBox();
+        dropItemMenu = new JComboBox<String>();
         a=model.getWarehouseTableModel().getTableRows();
         for (StockItem i : a) {
         	dropItemMenu.addItem(i.getName());
@@ -115,9 +115,10 @@ public class PurchaseItemPanel extends JPanel {
 
         nameField.setEditable(false);
         priceField.setEditable(false);
+        barCodeField.setEditable(false);
 
         // == Add components to the panel
-        // - DropDownMenu       
+               
         panel.add(new JLabel("Item: "));
         panel.add(dropItemMenu);
        
@@ -166,7 +167,12 @@ public class PurchaseItemPanel extends JPanel {
 
     // Search the warehouse for a StockItem with the bar code entered
     // to the barCode textfield.
-   
+    public void updateDropMenu(){
+    a=model.getWarehouseTableModel().getTableRows();
+    for (StockItem i : a) {
+    	dropItemMenu.addItem(i.getName());
+    	}
+    }
     private StockItem getStockItemByName() {
         try {
         	
@@ -234,6 +240,7 @@ public class PurchaseItemPanel extends JPanel {
         quantityField.setText("1");
         nameField.setText("");
         priceField.setText("");
+        dropItemMenu.removeAllItems();
     }
 
     /*

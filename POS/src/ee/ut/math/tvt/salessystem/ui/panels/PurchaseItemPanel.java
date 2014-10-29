@@ -37,10 +37,10 @@ public class PurchaseItemPanel extends JPanel {
 
     // Text field on the dialogPane
     private JComboBox<String> dropItemMenu;
-    private JTextField barCodeField;
-    private JTextField quantityField;
-    private JTextField nameField;
-    private JTextField priceField;
+    public static JTextField barCodeField;
+    public static JTextField quantityField;
+    public static JTextField nameField;
+    public static JTextField priceField;
     private List<StockItem> a; 
 
     private JButton addItemButton;

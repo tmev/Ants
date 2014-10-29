@@ -215,7 +215,7 @@ public class PurchaseTab {
 
 	  PropertyConfigurator.configure("log4j.properties");
 		
-		JFrame raam = new JFrame("Information"); // raami loomine
+		final JFrame raam = new JFrame("Information"); // raami loomine
 	    raam.setSize(750, 260); // 
 	    raam.setLocation(100, 100); // 
 	    raam.getContentPane().setBackground(Color.WHITE);
@@ -277,7 +277,19 @@ public class PurchaseTab {
 	    Accept.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Date date = new Date();
+                raam.setVisible(false);
+                PurchaseItemPanel.nameField.setText("");
+                PurchaseItemPanel.barCodeField.setText("");
+                PurchaseItemPanel.quantityField.setText("");
+                PurchaseItemPanel.priceField.setText("");
+                log.info("Transaction Complete");
             	log.info("Date: " +date+ " Price: "+totalSum.getText());
+            }
+        });
+	    Cancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                log.info("Transaction Cancelled");
+                raam.setVisible(false);
             }
         });
 

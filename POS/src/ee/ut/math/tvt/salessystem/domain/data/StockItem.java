@@ -1,5 +1,7 @@
 package ee.ut.math.tvt.salessystem.domain.data;
 
+import java.util.ArrayList;
+
 /**
  * Stock item. Corresponds to the Data Transfer Object design pattern.
  */
@@ -21,7 +23,10 @@ public class StockItem implements Cloneable, DisplayableItem {
      * @param name name of the product
      * @param desc description of the product
      * @param price price of the product
+     * @return 
      */
+    
+    
     public StockItem(Long id, String name, String desc, double price) {
         this.id = id;
         this.name = name;
@@ -35,6 +40,16 @@ public class StockItem implements Cloneable, DisplayableItem {
         this.description = desc;
         this.price = price;
         this.quantity = quantity;
+    }
+    public static StockItem StockItemfromArray(ArrayList array){
+    	long id1 = (long) array.get(0);
+    	String name1 = (String) array.get(1);
+    	String description1 = (String) array.get(2);
+    	double price1 = (double) array.get(3);
+//    	int quantity1 = (int) array.get(4);
+    	StockItem returnable = new StockItem(id1, name1, description1, price1);
+    	return returnable;
+    	
     }
 
     /**

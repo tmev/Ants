@@ -1,8 +1,10 @@
 package ee.ut.math.tvt.salessystem.ui.panels;
 
+import ee.ut.math.tvt.salessystem.domain.controller.impl.SalesDomainControllerImpl;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -11,8 +13,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.NoSuchElementException;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,6 +32,7 @@ public class PurchaseItemPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     // Text field on the dialogPane
+    private JComboBox dropItemMenu;
     private JTextField barCodeField;
     private JTextField quantityField;
     private JTextField nameField;
@@ -78,10 +83,11 @@ public class PurchaseItemPanel extends JPanel {
 
         // Create the panel
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(5, 2));
+        panel.setLayout(new GridLayout(6, 2));
         panel.setBorder(BorderFactory.createTitledBorder("Product"));
 
         // Initialize the textfields
+        dropItemMenu = new JComboBox();
         barCodeField = new JTextField();
         quantityField = new JTextField("1");
         nameField = new JTextField();
@@ -101,7 +107,10 @@ public class PurchaseItemPanel extends JPanel {
         priceField.setEditable(false);
 
         // == Add components to the panel
-
+        // - DropDownMenu       
+        panel.add(new JLabel("Item: "));
+        panel.add(dropItemMenu);
+       
         // - bar code
         panel.add(new JLabel("Bar code:"));
         panel.add(barCodeField);

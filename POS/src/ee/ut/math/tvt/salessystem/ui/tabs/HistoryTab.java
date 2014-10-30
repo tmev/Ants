@@ -1,22 +1,42 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
-import java.awt.Component;
-
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 /**
  * Encapsulates everything that has to do with the purchase tab (the tab
  * labelled "History" in the menu).
  */
-public class HistoryTab {
-    
-    // TODO - implement!
+public class HistoryTab{
 
-    public HistoryTab() {} 
-    
-    public Component draw() {
-        JPanel panel = new JPanel();
-        // TODO - Sales history tabel
-        return panel;
-    }
+	public Component draw() {
+		{
+			String[] ColumnNames = {"Date", "Time", "Price"};
+			Object[][] Data = {{"01.01.1970", "00:00:00","100"},{"01.01.1980", "00:00:10","1000"}};
+			JTable historyTable = new JTable(Data, ColumnNames);
+			
+			String[] ColumnNamesDetails = {"Name", "Amount", "Price", "Sum"};
+			Object[][] DetailData = {{"","","",""}};
+			JTable historyTableDetails = new JTable(DetailData, ColumnNamesDetails);
+			
+			JPanel frame = new JPanel();
+			frame.setLayout(new GridLayout(2,1));
+		    JScrollPane scrollPane = new JScrollPane(historyTable);
+		    JScrollPane scrollPaneDetail = new JScrollPane(historyTableDetails);
+	        frame.setBorder(BorderFactory.createTitledBorder("History"));
+		    frame.add(scrollPane);
+		    frame.add(scrollPaneDetail);
+		    frame.setVisible(true);
+			return frame;
+		}
+	}
 }

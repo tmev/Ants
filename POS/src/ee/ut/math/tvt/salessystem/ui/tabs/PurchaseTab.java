@@ -226,12 +226,6 @@ public class PurchaseTab {
 	    Cancel = new JButton("Cancel");
 	   	
 	    JPanel sisu = new JPanel(new GridLayout(6, 2));
-	    /* JLabel tekst = new JLabel("<html>"
-	    		+ "<b>Order total sum<br/>"
-	    		+ "Enter payment amount<br/>"
-	    		+ "Change amount<br/>"
-	    		+ "Accept/Cancel</html>");
-	    sisu.add(tekst);*/
 	    
 	    sisu.add(new JLabel("<html><b>Order total sum<br/></html>"));
 	    sisu.add(new JLabel("<html><b>Enter payment amount<br/></html>"));

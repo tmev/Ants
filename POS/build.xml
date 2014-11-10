@@ -10,12 +10,34 @@
     <property name="main-class"  value="ee.ut.math.tvt.ants.Intro"/>
 	<property name="repository" value="https://github.com/tmev/Ants.git" />
 	
+	<!-- database variables -->
+	
+	<property name="data.dir"	value="${basedir}/data"/>
+	<property name="db.file"	value="${data.dir}/POSdb"/>
+	<property name="db.alias"	value="POS"/>
+	<property name="db.url" 	value="jdbc:hsqldb:hsql://localhost/POS"/>
+	<property name="lib.hibernate.dir"   value="${lib.dir}/hibernate"/>
+	
 	<path id="compile.classpath">
 		<fileset dir="lib">
 			<include name="*.jar"/>
 		</fileset>
+		<fileset dir="${lib.hibernate.dir}">
+		    <include name="*.jar"/>
+		</fileset>
 	</path>
-	
+	<path id="run.classpath">
+	        <pathelement location="${build.classes.dir}"/>
+	        <!-- configuration -->
+	        <pathelement location="${conf.dir}"/>
+	        <fileset dir="${lib.dir}">
+	            <include name="*.jar"/>
+	        </fileset>
+
+	        <fileset dir="${lib.hibernate.dir}">
+	             <include name="*.jar"/>
+	        </fileset>
+	</path>
 
 	
 	<path id="test.classpath">
@@ -28,6 +50,25 @@
 		</fileset>
 	</path>
 
+	<target name="dbmanager" description="Start the HSQLDB manager">
+	        <java
+	            classname="org.hsqldb.util.DatabaseManagerSwing"
+	            classpathref="run.classpath"
+	            fork="yes"
+	        >
+	            <arg line="--user sa --url ${db.url}" />
+	        </java>
+	    </target>
+
+	    <target name="startdb" description="Start the HSQLDB with the default params">
+	        <java
+	            classname="org.hsqldb.Server"
+	            classpathref="run.classpath"
+	            fork="yes"
+	        >
+	            <arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" /> 
+	        </java>
+	</target>
     <target name="clean">
         <delete dir="${build.dir}"/>
     </target>

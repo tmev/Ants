@@ -32,12 +32,19 @@ public class HistoryTab{
 
 	public Component draw() {
 		{
+<<<<<<< HEAD
+			String[] ColumnNames = {"Date", "Time", "Price"};
+			Object[][] Data = {{"01.01.1970", "00:00:00","1.11"},{"01.01.1980", "00:00:10","1.12"},
+					{"01.01.1990", "00:00:10","1.13"},{"01.01.2000", "00:00:10","1.14"},{"01.01.2010", "00:00:10","1.15"}};
+			JTable historyTable = new JTable(Data, ColumnNames);
+=======
 			JPanel panel = new JPanel();
 		    
 		    Object[][] Data = {{"01.01.1970", "00:00:00","100"},{"01.01.1980", "00:00:10","1000"}};
 			
 			final String[] ColumnNamesDetails = {"Name", "Amount", "Price", "Sum"};
 			final String[][][] DetailsDataAll = {{{"","","",""},{"","","",""}},{{"","","",""},{"","","",""}}};
+>>>>>>> 003136551a13c8216c1ef989a7945270dc2a3311
 			
 			panel.add(drawHistoryDatesPane());
 			return panel;

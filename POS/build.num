@@ -1,6 +1,11 @@
 #Build Number for ANT. Do not edit!
+<<<<<<< HEAD
+#Wed Nov 12 22:02:03 EET 2014
+build.number=115
+=======
 #Wed Nov 12 18:05:22 EET 2014
 build.number=114
+>>>>>>> 003136551a13c8216c1ef989a7945270dc2a3311
 >>>>>>>=14bb5127a6470fce6116cf4e0e101508f8329072
-=\=\=\=\=\=\=
 <<<<<<<=HEAD
+=\=\=\=\=\=\=

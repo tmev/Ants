@@ -88,4 +88,3 @@ public class SalesSystemUI extends JFrame {
 
 }
 
-

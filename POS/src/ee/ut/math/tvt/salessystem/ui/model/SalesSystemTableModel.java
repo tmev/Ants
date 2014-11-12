@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import javax.swing.table.AbstractTableModel;
 
 import ee.ut.math.tvt.salessystem.domain.data.DisplayableItem;
+import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 
 /**
  * Generic table model implementation suitable for extending.

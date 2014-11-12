@@ -224,6 +224,7 @@ public class PurchaseTab {
 	    CalculateMoney = new JButton("Calculate");
 	    Accept = new JButton("Accept");
 	    Cancel = new JButton("Cancel");
+	    
 	   	
 	    JPanel sisu = new JPanel(new GridLayout(6, 2));
 	    
@@ -246,6 +247,7 @@ public class PurchaseTab {
 	    sisu2.add(changeAmount);
 	    sisu2.add(Accept);
 	    sisu2.add(Cancel);
+	    Accept.setEnabled(false);
         totalSum.setEditable(false);
         changeAmount.setEditable(false);
         
@@ -277,6 +279,7 @@ public class PurchaseTab {
                 PurchaseItemPanel.quantityField.setText("");
                 PurchaseItemPanel.priceField.setText("");
                 model.getCurrentPurchaseTableModel().clear();
+                
                 log.info("Transaction Complete");
             	log.info("Date: " +date+ " Price: "+totalSum.getText());
             }
@@ -300,6 +303,9 @@ public class PurchaseTab {
 	private String CalculateMoneySum() {
 			double payment = Double.parseDouble(paymentAmount.getText());
 			double totalsumN = Double.parseDouble(totalSum.getText());
+			if((payment-totalsumN)>=0){
+				Accept.setEnabled(true);
+			}
 			String Change = String.valueOf(payment-totalsumN);
 		return Change;
 		}

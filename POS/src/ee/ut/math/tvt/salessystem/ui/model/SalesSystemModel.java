@@ -46,12 +46,9 @@ public class SalesSystemModel {
     public PurchaseInfoTableModel getCurrentPurchaseTableModel() {
         return currentPurchaseTableModel;
     }
-<<<<<<< HEAD
-=======
     public HistoryDatesTableModel getHistoryDatesTableModel(){
     	return currentHistoryDatesTableModel;
     }
->>>>>>> 003136551a13c8216c1ef989a7945270dc2a3311
     public SalesDomainController getDomainController() {
     	return domainController;
     	}

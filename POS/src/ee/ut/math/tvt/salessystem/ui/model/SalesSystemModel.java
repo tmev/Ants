@@ -46,13 +46,10 @@ public class SalesSystemModel {
     public PurchaseInfoTableModel getCurrentPurchaseTableModel() {
         return currentPurchaseTableModel;
     }
-<<<<<<< HEAD
     public HistoryDatesTableModel getHistoryDatesTableModel(){
     	return currentHistoryDatesTableModel;
     }
-=======
     public SalesDomainController getDomainController() {
     	return domainController;
     	}
->>>>>>> branch 'master' of https://github.com/tmev/Ants
 }

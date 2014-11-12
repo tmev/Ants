@@ -2,9 +2,18 @@ package ee.ut.math.tvt.salessystem.domain.data;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Stock item. Corresponds to the Data Transfer Object design pattern.
  */
+@Entity
+@Table(name="STOCKITEM")
 public class StockItem implements Cloneable, DisplayableItem {
 	
     private Long id;
@@ -57,15 +66,17 @@ public class StockItem implements Cloneable, DisplayableItem {
      */
     public StockItem() {
     }
-
-    public String getDescription() {
-        return description;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
+        return id;
     }
+   
 
     public void setDescription(String description) {
         this.description = description;
     }
-
+    @Column(name="name")
     public String getName() {
         return name;
     }
@@ -73,7 +84,7 @@ public class StockItem implements Cloneable, DisplayableItem {
     public void setName(String name) {
         this.name = name;
     }
-
+    @Column(name = "price")
     public double getPrice() {
         return price;
     }
@@ -81,15 +92,12 @@ public class StockItem implements Cloneable, DisplayableItem {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public Long getId() {
-        return id;
-    }
+   
 
     public void setId(Long id) {
         this.id = id;
     }
-    
+    @Column(name = "quantity")
     public int getQuantity() {
         return quantity;
     }
@@ -97,7 +105,10 @@ public class StockItem implements Cloneable, DisplayableItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
     public String toString() {
         return id + " " + name + " " + description + " " + price;
     }

@@ -32,12 +32,14 @@ public class HistoryTab{
 
 	public Component draw() {
 		{
+			JPanel panel = new JPanel();
 		    
 		    Object[][] Data = {{"01.01.1970", "00:00:00","100"},{"01.01.1980", "00:00:10","1000"}};
 			
 			final String[] ColumnNamesDetails = {"Name", "Amount", "Price", "Sum"};
 			final String[][][] DetailsDataAll = {{{"","","",""},{"","","",""}},{{"","","",""},{"","","",""}}};
 			
+			panel.add(drawHistoryDatesPane());
 			return panel;
 			
 		}

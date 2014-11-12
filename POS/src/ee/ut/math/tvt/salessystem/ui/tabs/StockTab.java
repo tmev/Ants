@@ -1,6 +1,8 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
+import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
 
@@ -15,6 +17,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,15 +33,16 @@ public class StockTab {
 	private JTextField StockPrice;
 	private JTextField StockQuantity;
 	private JButton addItem;
-  
+	private SalesDomainController domainController;
+	
 	
 	public StockItem CreateStockItem(){
 		Long id = Long.parseLong(StockID.getText());
-		String name = StockName.getText();
-		String desc = StockDescription.getText();
+		String name = StockName.getText();		
 		double price = Double.parseDouble(StockPrice.getText());
 		Integer quantity = Integer.parseInt(StockQuantity.getText());
-		StockItem stockItem = new StockItem(id, name, desc, price, quantity);
+		String desc = StockDescription.getText();
+		StockItem stockItem = new StockItem(id,name,price,quantity,desc);
 		return stockItem;
 	}
 	
@@ -55,12 +59,19 @@ public class StockTab {
 	  addItem = new JButton("Add");
 	  addItem.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent e) {
+        	  try {
+				
+			
         	  model.getWarehouseTableModel().addItem(CreateStockItem());;
+        	  domainController.submitNewStockItem(CreateStockItem());
         	  StockID.setText("");
         	  StockName.setText("");
         	  StockDescription.setText("");
         	  StockPrice.setText("");
         	  StockQuantity.setText("");
+        	  } catch (VerificationFailedException e1) {
+  				JOptionPane.showMessageDialog(null, e1.getMessage());;
+  			}
           }
       });
 	  addStock.add(addItem);

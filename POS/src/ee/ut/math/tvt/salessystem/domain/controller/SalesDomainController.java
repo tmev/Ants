@@ -44,6 +44,6 @@ public interface SalesDomainController {
      */
     public void submitCurrentPurchase(List<SoldItem> goods)
             throws VerificationFailedException;
-
+    public void submitNewStockItem(StockItem stockItem) throws VerificationFailedException;
     public void endSession();
 }

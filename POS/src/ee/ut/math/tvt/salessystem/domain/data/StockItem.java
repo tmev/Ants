@@ -15,17 +15,19 @@ import javax.persistence.Table;
 @Entity
 @Table(name="STOCKITEM")
 public class StockItem implements Cloneable, DisplayableItem {
-	
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+	 @Column(name="name")
     private String name;
-
+	 @Column(name = "price")
     private double price;
+	 @Column(name = "quantity")
+	 private int quantity;
 
-    private String description;
-    
-    private int quantity;
-
+	 @Column(name = "description")
+	 private String description;
+   
     /**
      * Constucts new <code>StockItem</code> with the specified values.
      * @param id barcode id
@@ -43,7 +45,7 @@ public class StockItem implements Cloneable, DisplayableItem {
         this.price = price;
     }
     
-    public StockItem(Long id, String name, String desc, double price, int quantity) {
+    public StockItem(Long id, String name,  double price, int quantity,String desc) {
         this.id = id;
         this.name = name;
         this.description = desc;
@@ -66,8 +68,7 @@ public class StockItem implements Cloneable, DisplayableItem {
      */
     public StockItem() {
     }
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   
     public Long getId() {
         return id;
     }
@@ -76,7 +77,7 @@ public class StockItem implements Cloneable, DisplayableItem {
     public void setDescription(String description) {
         this.description = description;
     }
-    @Column(name="name")
+    
     public String getName() {
         return name;
     }
@@ -84,7 +85,7 @@ public class StockItem implements Cloneable, DisplayableItem {
     public void setName(String name) {
         this.name = name;
     }
-    @Column(name = "price")
+    
     public double getPrice() {
         return price;
     }
@@ -97,7 +98,7 @@ public class StockItem implements Cloneable, DisplayableItem {
     public void setId(Long id) {
         this.id = id;
     }
-    @Column(name = "quantity")
+   
     public int getQuantity() {
         return quantity;
     }
@@ -105,7 +106,7 @@ public class StockItem implements Cloneable, DisplayableItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    @Column(name = "description")
+    
     public String getDescription() {
         return description;
     }
@@ -131,7 +132,7 @@ public class StockItem implements Cloneable, DisplayableItem {
     
     public Object clone() {
         StockItem item =
-            new StockItem(getId(), getName(), getDescription(), getPrice(), getQuantity());
+            new StockItem(getId(), getName(),  getPrice(), getQuantity(),getDescription());
         return item;
     }
 		

@@ -11,6 +11,7 @@ import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.util.HibernateUtil;
+import org.hibernate.Transaction;
 
 /**
  * Implementation of the sales domain controller.
@@ -52,6 +53,14 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 		return dataset;*/
 	}
 	
+	 public void submitNewStockItem(StockItem stockItem)
+		 throws VerificationFailedException{
+		 	session.getTransaction().begin();
+		 	session.persist(stockItem);
+		 	session.getTransaction().commit();
+			 
+		 
+	 }
 	public void endSession() {
 		HibernateUtil.closeSession();
 	}

@@ -1,23 +1,22 @@
 package ee.ut.math.tvt.salessystem.ui.panels;
 
-import ee.ut.math.tvt.salessystem.domain.controller.impl.SalesDomainControllerImpl;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.domain.exception.SalesSystemException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+import ee.ut.math.tvt.salessystem.ui.tabs.PurchaseTab;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -28,20 +27,22 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
+
 /**
  * Purchase pane + shopping cart tabel UI.
  */
 public class PurchaseItemPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    
+    private static final Logger logger = Logger.getLogger(PurchaseItemPanel.class);
 
     // Text field on the dialogPane
-    private JComboBox<String> dropItemMenu;
-    public static JTextField barCodeField;
-    public static JTextField quantityField;
-    public static JTextField nameField;
-    public static JTextField priceField;
-    private List<StockItem> a; 
+    private JComboBox stockItemSelector;
+    private JTextField barCodeField;
+    private JTextField quantityField;
+    private JTextField priceField;
 
     private JButton addItemButton;
 
@@ -50,7 +51,7 @@ public class PurchaseItemPanel extends JPanel {
 
     /**
      * Constructs new purchase item panel.
-     * 
+     *
      * @param model
      *            composite model of the warehouse and the shopping cart.
      */
@@ -88,40 +89,33 @@ public class PurchaseItemPanel extends JPanel {
 
         // Create the panel
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(6, 2));
+        panel.setLayout(new GridLayout(5, 2));
         panel.setBorder(BorderFactory.createTitledBorder("Product"));
 
-        // Initialize the textfields
-        dropItemMenu = new JComboBox<String>();
-        a=model.getWarehouseTableModel().getTableRows();
-        for (StockItem i : a) {
-        	dropItemMenu.addItem(i.getName());
-        	}
-
+        stockItemSelector = new JComboBox();
         barCodeField = new JTextField();
         quantityField = new JTextField("1");
-        nameField = new JTextField();
         priceField = new JTextField();
 
-        // Fill the dialog fields if the bar code text field loses focus
-        dropItemMenu.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent arg0) {
-            	if (dropItemMenu.isEnabled() == true){
-            		fillDialogFields();}
-           
+        // Fill the dialog fields if the selected item in the JComboBox changes
+        stockItemSelector.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    fillDialogFields();
+                }
             }
-        
         });
 
-        nameField.setEditable(false);
-        priceField.setEditable(false);
         barCodeField.setEditable(false);
+        priceField.setEditable(false);
+
 
         // == Add components to the panel
-               
-        panel.add(new JLabel("Item: "));
-        panel.add(dropItemMenu);
-       
+
+        // - selector
+        panel.add(new JLabel("Item:"));
+        panel.add(stockItemSelector);
+
         // - bar code
         panel.add(new JLabel("Bar code:"));
         panel.add(barCodeField);
@@ -129,10 +123,6 @@ public class PurchaseItemPanel extends JPanel {
         // - amount
         panel.add(new JLabel("Amount:"));
         panel.add(quantityField);
-
-        // - name
-        panel.add(new JLabel("Name:"));
-        panel.add(nameField);
 
         // - price
         panel.add(new JLabel("Price:"));
@@ -151,15 +141,19 @@ public class PurchaseItemPanel extends JPanel {
         return panel;
     }
 
+
+
     // Fill dialog with data from the "database".
     public void fillDialogFields() {
-       // StockItem stockItem = getStockItemByBarcode();
-    	StockItem stockItem = getStockItemByName();
+        //StockItem stockItem = getStockItemByBarcode();
+        StockItem stockItem = (StockItem) stockItemSelector.getSelectedItem();
+
         if (stockItem != null) {
-            nameField.setText(stockItem.getName());
-            String priceString = String.valueOf(stockItem.getPrice());
-            priceField.setText(priceString);
-            barCodeField.setText(String.valueOf(stockItem.getId()));
+            String barCodeAsString = String.valueOf(stockItem.getId());
+            String priceAsString = String.valueOf(stockItem.getPrice());
+
+            barCodeField.setText(barCodeAsString);
+            priceField.setText(priceAsString);
         } else {
             reset();
         }
@@ -167,59 +161,49 @@ public class PurchaseItemPanel extends JPanel {
 
     // Search the warehouse for a StockItem with the bar code entered
     // to the barCode textfield.
-    public void updateDropMenu(){
-    a=model.getWarehouseTableModel().getTableRows();
-    for (StockItem i : a) {
-    	dropItemMenu.addItem(i.getName());
-    	}
-    }
-    private StockItem getStockItemByName() {
+    private StockItem getStockItemByBarcode() {
         try {
-        	
-        	for (StockItem i : a) {
-        	if (i.getName() == (String) dropItemMenu.getSelectedItem()){
-            int j = i.getId().intValue();
-            return model.getWarehouseTableModel().getItemById(j);}
-        	}
-        	 return null;} 
-       
-        catch (NumberFormatException ex) {
+            int code = Integer.parseInt(barCodeField.getText());
+            return model.getWarehouseTableModel().getItemById(code);
+        } catch (NumberFormatException ex) {
             return null;
         } catch (NoSuchElementException ex) {
             return null;
         }
     }
-
+    
     /**
      * Add new item to the cart.
      */
     public void addItemEventHandler() {
         // add chosen item to the shopping cart.
-        StockItem stockItem = getStockItemByName();
+        StockItem stockItem = getStockItemByBarcode();
         if (stockItem != null) {
             int quantity;
             try {
                 quantity = Integer.parseInt(quantityField.getText());
-                if (quantity < 0) {
-                	throw new NumberFormatException("Negative quantity.");
-                	}
-                else if (stockItem.getQuantity()==0){
-                	JOptionPane.showMessageDialog(this, "No more "+ stockItem.getName() + " in the Stock.");                	
-                }
-                else if (stockItem.getQuantity() < quantity) {
-                	JOptionPane.showMessageDialog(this, "Only "+stockItem.getQuantity()+"  "+ stockItem.getName() + " in the Stock.");
-            } 
-                
-                else{
-                	model.getCurrentPurchaseTableModel().addItem(new SoldItem(stockItem, quantity));
-                	stockItem.setQuantity(stockItem.getQuantity() - quantity);
-                }
-            }
-                catch (NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 quantity = 1;
             }
-            
+
+            // If there is not enough stock left in the warehouse to add this quantity..
+            try {
+            	SoldItem soldItem = new SoldItem(stockItem, quantity);
+            	 model.getCurrentPurchaseTableModel().addItem(soldItem);
+            	 PurchaseTab.sale.addSoldItem(soldItem);
+            } catch (SalesSystemException e) {
+                showNotEnoughInStockWarning();
+            }
         }
+    }
+
+    private void showNotEnoughInStockWarning() {
+        JOptionPane.showMessageDialog(this,
+                "Not enough stock, decrease amount",
+                "Attention",
+                JOptionPane.WARNING_MESSAGE
+        );
+        logger.debug("  -- there was not enough cargo in warehouse to add item");
     }
 
     /**
@@ -227,20 +211,28 @@ public class PurchaseItemPanel extends JPanel {
      */
     @Override
     public void setEnabled(boolean enabled) {
-        this.addItemButton.setEnabled(enabled);
+        this.stockItemSelector.setEnabled(enabled);
         this.barCodeField.setEnabled(enabled);
         this.quantityField.setEnabled(enabled);
+
+        this.addItemButton.setEnabled(enabled);
+
+        fillDialogFields();
     }
 
     /**
      * Reset dialog fields.
      */
     public void reset() {
+        // Initialize the textfields
+        ((DefaultComboBoxModel)stockItemSelector.getModel()).removeAllElements();
+        for(StockItem stockItem : model.getWarehouseTableModel().getTableRows()) {
+            ((DefaultComboBoxModel)stockItemSelector.getModel()).addElement(stockItem);
+        }
         barCodeField.setText("");
         quantityField.setText("1");
-        nameField.setText("");
+        //nameField.setText("");
         priceField.setText("");
-        dropItemMenu.removeAllItems();
     }
 
     /*
@@ -248,7 +240,7 @@ public class PurchaseItemPanel extends JPanel {
      * possible. If you work on the behavior of the application, you don't want
      * the layout details to get on your way all the time, and vice versa. This
      * separation leads to cleaner, more readable and better maintainable code.
-     * 
+     *
      * In a Swing application, the layout is also defined as Java code and this
      * separation is more difficult to make. One thing that can still be done is
      * moving the layout-defining code out into separate methods, leaving the

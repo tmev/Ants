@@ -1,56 +1,69 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
-import org.apache.log4j.Logger;
-
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
+import ee.ut.math.tvt.salessystem.domain.data.Client;
+import ee.ut.math.tvt.salessystem.domain.data.Sale;
+import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import java.util.List;
 
 /**
  * Main model. Holds all the other models.
  */
 public class SalesSystemModel {
-    
-    private static final Logger log = Logger.getLogger(SalesSystemModel.class);
 
     // Warehouse model
     private StockTableModel warehouseTableModel;
-    
+
     // Current shopping cart model
     private PurchaseInfoTableModel currentPurchaseTableModel;
-    
-    //Current history Dates table model
-    private HistoryDatesTableModel currentHistoryDatesTableModel;
-    
 
-    private final SalesDomainController domainController;
+    // Puchase history model
+    private PurchaseHistoryTableModel purchaseHistoryTableModel;
+
+    private ClientTableModel clientTableModel;
+
+    private Client selectedClient;
 
     /**
      * Construct application model.
      * @param domainController Sales domain controller.
      */
     public SalesSystemModel(SalesDomainController domainController) {
-        this.domainController = domainController;
-        
+
         warehouseTableModel = new StockTableModel();
-        currentPurchaseTableModel = new PurchaseInfoTableModel();
-        currentHistoryDatesTableModel = new HistoryDatesTableModel();
+        currentPurchaseTableModel = new PurchaseInfoTableModel(this);
+        purchaseHistoryTableModel = new PurchaseHistoryTableModel();
+        clientTableModel = new ClientTableModel();}
 
-        // populate stock model with data from the warehouse
-        warehouseTableModel.populateWithData(domainController.loadWarehouseState());
-
-    }
-
+        // Load data from the database
     public StockTableModel getWarehouseTableModel() {
-        return warehouseTableModel;
-    }
-
+    	 return warehouseTableModel;
+    	 }
     public PurchaseInfoTableModel getCurrentPurchaseTableModel() {
-        return currentPurchaseTableModel;
-    }
-    public HistoryDatesTableModel getHistoryDatesTableModel(){
-    	return currentHistoryDatesTableModel;
-    }
-    public SalesDomainController getDomainController() {
-    	return domainController;
-    	}
-}
+    	 return currentPurchaseTableModel;
+    	 }
 
+    public PurchaseHistoryTableModel getPurchaseHistoryTableModel() {
+    	 return purchaseHistoryTableModel;
+    	}
+
+    public ClientTableModel getClientTableModel() {
+    	 return clientTableModel;
+    	 }
+    public void setPurchaseHistoryTableModel(
+    		 PurchaseHistoryTableModel purchaseHistoryTableModel) {
+    		 this.purchaseHistoryTableModel = purchaseHistoryTableModel;
+    		 }
+
+    
+    public Client getSelectedClient() {
+    		return selectedClient;
+    		}
+   
+
+    
+    public void setSelectedClient(Client client) {
+        this.selectedClient = client;
+    }
+
+}

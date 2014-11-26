@@ -1,43 +1,126 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
+import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
+import ee.ut.math.tvt.salessystem.domain.data.Sale;
+import ee.ut.math.tvt.salessystem.ui.model.PurchaseInfoTableModel;
+import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.util.List;
+
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 /**
  * Encapsulates everything that has to do with the purchase tab (the tab
  * labelled "History" in the menu).
  */
-public class HistoryTab{
+public class HistoryTab {
 
-	public Component draw() {
-		{
-			String[] ColumnNames = {"Date", "Time", "Price"};
-			Object[][] Data = {{"01.01.1970", "00:00:00","1.11"},{"01.01.1980", "00:00:10","1.12"},
-					{"01.01.1990", "00:00:10","1.13"},{"01.01.2000", "00:00:10","1.14"},{"01.01.2010", "00:00:10","1.15"}};
-			JTable historyTable = new JTable(Data, ColumnNames);
-			
-			String[] ColumnNamesDetails = {"Name", "Amount", "Price", "Sum"};
-			Object[][] DetailData = {{"","","",""}};
-			JTable historyTableDetails = new JTable(DetailData, ColumnNamesDetails);
-			
-			JPanel frame = new JPanel();
-			frame.setLayout(new GridLayout(2,1));
-		    JScrollPane scrollPane = new JScrollPane(historyTable);
-		    JScrollPane scrollPaneDetail = new JScrollPane(historyTableDetails);
-	        frame.setBorder(BorderFactory.createTitledBorder("History"));
-		    frame.add(scrollPane);
-		    frame.add(scrollPaneDetail);
-		    frame.setVisible(true);
-			return frame;
-		}
-	}
+    private SalesSystemModel model;
+
+    private PurchaseInfoTableModel historyDetailsTableModel;
+    private final SalesDomainController controller;
+
+    public HistoryTab(SalesSystemModel model, SalesDomainController controller) {
+    	 this.model = model;
+    	 this.controller = controller;
+    }
+
+    /**
+     * The main entry-point method. Creates the tab.
+     */
+    public Component draw() {
+        JPanel panel = new JPanel();
+
+        GridBagConstraints gc = getGbConstraints();
+        GridBagLayout gb = new GridBagLayout();
+
+        panel.setLayout(gb);
+        panel.add(drawHistoryGeneralTable(), gc);
+        panel.add(drawHistoryDetailsTable(), gc);
+
+        return panel;
+    }
+
+
+
+    private Component drawHistoryGeneralTable() {
+    	
+        JTable table = new JTable(model.getPurchaseHistoryTableModel());
+        table.getTableHeader().setReorderingAllowed(false);
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        ListSelectionModel rowSM = table.getSelectionModel();
+
+        rowSM.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+
+                // Ignore extra messages.
+                if (e.getValueIsAdjusting()) return;
+
+                ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+                if (!lsm.isSelectionEmpty()) {
+                    int selectedRow = lsm.getMinSelectionIndex();
+                    Sale sale = model.getPurchaseHistoryTableModel().getRow(selectedRow);
+                    historyDetailsTableModel.showSale(sale);
+                }
+            }
+        });
+
+        // Wrap it inside a panel
+        JPanel panel = createWrapperPanel("Sales history");
+        panel.add(scrollPane, getGbConstraints());
+
+        return panel;
+    }
+
+
+    private Component drawHistoryDetailsTable() {
+
+        // Create the table
+        historyDetailsTableModel = PurchaseInfoTableModel.getEmptyTable();
+        JTable table = new JTable(historyDetailsTableModel);
+        table.getTableHeader().setReorderingAllowed(false);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Wrap it inside a panel
+        JPanel panel = createWrapperPanel("Details of the selected sale");
+        panel.add(scrollPane, getGbConstraints());
+
+        return panel;
+    }
+
+
+    private JPanel createWrapperPanel(String title) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        panel.setBorder(BorderFactory.createTitledBorder(title));
+
+        return panel;
+    }
+
+    public void refresh() {
+    	model.getPurchaseHistoryTableModel().populateWithData(controller.getAllSales());
+    	model.getPurchaseHistoryTableModel().fireTableDataChanged();
+    	 }
+    private GridBagConstraints getGbConstraints() {
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.fill = GridBagConstraints.BOTH;
+        gc.gridwidth = GridBagConstraints.REMAINDER;
+        gc.weightx = 1.0;
+        gc.weighty = 1.0;
+        return gc;
+    }
+
 }
+

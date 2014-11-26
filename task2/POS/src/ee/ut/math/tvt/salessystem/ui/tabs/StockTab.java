@@ -1,164 +1,200 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
+import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
-import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
 
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.JTableHeader;
-import javax.swing.JComponent;
 
+import org.apache.log4j.Logger;
 
 public class StockTab {
-	private JTextField StockID;
-	private JTextField StockName;
-	private JTextField StockDescription;
-	private JTextField StockPrice;
-	private JTextField StockQuantity;
-	private JButton addItem;
-  
-	
-	public StockItem CreateStockItem(){
-		Long id = Long.parseLong(StockID.getText());
-		String name = StockName.getText();
-		String desc = StockDescription.getText();
-		double price = Double.parseDouble(StockPrice.getText());
-		Integer quantity = Integer.parseInt(StockQuantity.getText());
-		StockItem stockItem = new StockItem(id, name, desc, price, quantity);
-		return stockItem;
-	}
-	
-	
-	public Component addStockItem(){
-	  JPanel addStock = new JPanel();
-	  addStock.setLayout(new GridLayout(1, 1));
-	  addStock.setBorder(BorderFactory.createTitledBorder("Add Stock "));
-	  StockID = new JTextField();
-	  StockName = new JTextField();
-	  StockDescription = new JTextField();
-	  StockPrice = new JTextField();
-	  StockQuantity = new JTextField();
-	  addItem = new JButton("Add");
-	  addItem.addActionListener(new ActionListener() {
-          public void actionPerformed(ActionEvent e) {
-        	  model.getWarehouseTableModel().addItem(CreateStockItem());;
-        	  StockID.setText("");
-        	  StockName.setText("");
-        	  StockDescription.setText("");
-        	  StockPrice.setText("");
-        	  StockQuantity.setText("");
-          }
-      });
-	  addStock.add(addItem);
-	  addStock.add(new JLabel(" ID:"));
-	  addStock.add(StockID);
-	  addStock.add(new JLabel(" Name:"));
-	  addStock.add(StockName);
-	  addStock.add(new JLabel(" Desc:"));
-	  addStock.add(StockDescription);
-	  addStock.add(new JLabel(" Price:"));
-	  addStock.add(StockPrice);
-	  addStock.add(new JLabel(" Quantity:"));
-	  addStock.add(StockQuantity);
-	  
-	  return addStock;
-  }
-  
 
-  private SalesSystemModel model;
+    private static final Logger log = Logger.getLogger(StockTab.class);
+    private final SalesDomainController controller;
 
-  public StockTab(SalesSystemModel model) {
-    this.model = model;
-  }
+    private SalesSystemModel model;
 
-  // warehouse stock tab - consists of a menu and a table
-  public Component draw() {
-    JPanel panel = new JPanel();
-    panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    private JButton addItem;
 
-    GridBagLayout gb = new GridBagLayout();
-    GridBagConstraints gc = new GridBagConstraints();
-    panel.setLayout(gb);
+    public StockTab(SalesSystemModel model, SalesDomainController controller) {
+        this.model = model;
+        this.controller = controller;
+    }
 
-    gc.fill = GridBagConstraints.HORIZONTAL;
-    gc.anchor = GridBagConstraints.NORTH;
-    gc.gridwidth = GridBagConstraints.REMAINDER;
-    gc.weightx = 1.0d;
-    gc.weighty = 0d;
+    // warehouse stock tab - consists of a menu and a table
+    public Component draw() {
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-    panel.add(drawStockMenuPane(), gc);
+        GridBagLayout gb = new GridBagLayout();
+        GridBagConstraints gc = new GridBagConstraints();
+        panel.setLayout(gb);
 
-    gc.weighty = 1.0;
-    gc.fill = GridBagConstraints.BOTH;
-    panel.add(drawStockMainPane(), gc);
-    return panel;
-  }
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        gc.anchor = GridBagConstraints.NORTH;
+        gc.gridwidth = GridBagConstraints.REMAINDER;
+        gc.weightx = 1.0d;
+        gc.weighty = 0d;
 
-  // warehouse menu
-  private Component drawStockMenuPane() {
-    JPanel panel = new JPanel();
+        panel.add(drawStockMenuPane(), gc);
 
-    GridBagConstraints gc = new GridBagConstraints();
-    GridBagLayout gb = new GridBagLayout();
+        gc.weighty = 1.0;
+        gc.fill = GridBagConstraints.BOTH;
+        panel.add(drawStockMainPane(), gc);
+        return panel;
+    }
 
-    panel.setLayout(gb);
+    // warehouse menu
+    private Component drawStockMenuPane() {
+        JPanel panel = new JPanel();
 
-    gc.anchor = GridBagConstraints.NORTHWEST;
-    gc.weightx = 0;
+        GridBagConstraints gc = new GridBagConstraints();
+        GridBagLayout gb = new GridBagLayout();
 
+        panel.setLayout(gb);
+
+        gc.anchor = GridBagConstraints.NORTHWEST;
+        gc.weightx = 0;
+
+        addItem = new JButton("Add");
+        addItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                addStockItemEventHandler();
+            }
+        });
+
+        gc.gridwidth = GridBagConstraints.RELATIVE;
+        gc.weightx = 1.0;
+        panel.add(addItem, gc);
+
+        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        return panel;
+    }
+
+    // table of the wareshouse stock
+    private Component drawStockMainPane() {
     
-    gc.gridwidth = GridBagConstraints.RELATIVE;
-    gc.weightx = 1.0;
-    panel.add(addStockItem());
-    panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    return panel;
-  }
+        JPanel panel = new JPanel();
 
-  // table of the wareshouse stock
-  private Component drawStockMainPane() {
-    JPanel panel = new JPanel();
+        JTable table = new JTable(model.getWarehouseTableModel());
 
-    JTable table = new JTable(model.getWarehouseTableModel());
-    
-    JTableHeader header = table.getTableHeader();
-    header.setReorderingAllowed(false);
+        JTableHeader header = table.getTableHeader();
+        header.setReorderingAllowed(false);
 
-    JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(table);
 
-    GridBagConstraints gc = new GridBagConstraints();
-    GridBagLayout gb = new GridBagLayout();
-    gc.fill = GridBagConstraints.BOTH;
-    gc.weightx = 1.0;
-    gc.weighty = 1.0;
+        GridBagConstraints gc = new GridBagConstraints();
+        GridBagLayout gb = new GridBagLayout();
+        gc.fill = GridBagConstraints.BOTH;
+        gc.weightx = 1.0;
+        gc.weighty = 1.0;
 
-    panel.setLayout(gb);
-    panel.add(scrollPane, gc);
+        panel.setLayout(gb);
+        panel.add(scrollPane, gc);
 
-    panel.setBorder(BorderFactory.createTitledBorder("Warehouse status"));
-    return panel;
-  }
+        panel.setBorder(BorderFactory.createTitledBorder("Warehouse status"));
+        return panel;
+    }
+    public void refresh(){
+    	model.getWarehouseTableModel().populateWithData(controller.getAllStockItems());
+    	model.getWarehouseTableModel().fireTableDataChanged();
+    	 }
+    /**
+     * Add new item to the stock.
+     */
+    public void addStockItemEventHandler() {
+        JTextField itemName = new JTextField();
+        JTextField itemPrice = new JTextField();
+        JTextField itemQuantity = new JTextField();
+
+        JOptionPane op = new JOptionPane(
+            new Object[] {"Name:", itemName, "Price:", itemPrice, "Quantity: ", itemQuantity},
+            JOptionPane.QUESTION_MESSAGE,
+            JOptionPane.OK_CANCEL_OPTION,
+            null,
+            null);
+
+        JDialog dialog = op.createDialog(null, "Enter new item ...");
+        dialog.setDefaultCloseOperation(
+                JDialog.DO_NOTHING_ON_CLOSE);
+        dialog.setVisible(true);
+
+        int result = ((Integer)op.getValue()).intValue();
+
+        if (result == JOptionPane.OK_OPTION) {
+            addItemOkPressed(itemName.getText(), itemPrice.getText(), itemQuantity.getText());
+        } else {
+            log.debug("Cancelled");
+        }
+    }
+
+    /**
+     * Add stock item
+     */
+    private void addItemOkPressed(String itemName, String itemPrice, String itemQuantity) {
+        StringBuffer errorMessage = new StringBuffer();
+        double price = 0.0;
+        int quantity = 0;
+        boolean nameValid = false;
+        boolean priceValid = false;
+        boolean quantityValid = false;
+
+        nameValid = itemName.length() > 0;
+        if (!nameValid) {
+            errorMessage.append("A non-empty name must be entered for the product!\n");
+        } else if (!model.getWarehouseTableModel().validateNameUniqueness(itemName)) {
+            errorMessage.append("Entered name already exists!\n");
+            nameValid = false;
+        }
+
+        try {
+            price = Double.parseDouble(itemPrice);
+            priceValid = (price >= 0.0);
+        } catch (NumberFormatException ex) {}
+
+        if (!priceValid) {
+            errorMessage.append("Entered price is not valid!\n");
+        }
+
+        try {
+            quantity = Integer.parseInt(itemQuantity);
+            quantityValid = (quantity >= 0);
+        } catch (NumberFormatException ex) {}
+
+        if (!quantityValid) {
+            errorMessage.append("Entered quantity is not valid!");
+        }
+
+        if (nameValid && priceValid && quantityValid) {
+            StockItem newItem = new StockItem(itemName, "", price, quantity);
+            controller.createStockItem(newItem);
+
+        // Show the error messages
+        } else {
+            JOptionPane.showMessageDialog(
+                    null,
+                    errorMessage.toString(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
 
 }
-
-
-
-
-
-
-
-
-

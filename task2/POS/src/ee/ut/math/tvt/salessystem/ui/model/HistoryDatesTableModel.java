@@ -1,5 +1,7 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
+import java.util.List;
+
 import ee.ut.math.tvt.salessystem.domain.data.HistorySoldDates;
 
 import org.apache.log4j.Logger;
@@ -23,8 +25,13 @@ public class HistoryDatesTableModel extends SalesSystemTableModel<HistorySoldDat
 		throw new IllegalArgumentException("Column index out of range");
 	}
     public void addItem(final HistorySoldDates item) {
-        rows.add(item);
+       // rows.add(item);
         log.debug("Added date: " + item.getDate() + " price of:  " + item.getPrice());
         fireTableDataChanged();
     }
+	@Override
+	public List<HistorySoldDates> getTableRows() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
